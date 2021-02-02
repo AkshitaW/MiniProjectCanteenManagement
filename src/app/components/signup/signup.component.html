@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 class="text-center">Sign Up</h1>
+    <form #f="ngForm" (ngSubmit)="signup(f)">
+        <input id="name" ngModel name="name" #name="ngModel" type="text" class="form-control" placeholder="Your name" required>
+        <div id="error" class="alert alert-danger" *ngIf="name.invalid && name.touched">Name is required</div>
+        <br>
+        <input id="email" ngModel name="email" #email="ngModel" type="email" class="form-control" placeholder="Email" required email>
+        <div id="error" class="alert alert-danger" *ngIf="email.touched && email.errors?.required">Email is required</div>
+        <div class="alert alert-success" *ngIf="email.touched && email.errors?.email"><i class="fas fa-times-circle"></i>Your email is not in required format</div>
+        <br>
+        <input id="pass" ngModel name="password" #password="ngModel" type="password" class="form-control" placeholder="Password" required minlength="6">
+        <div id="error" class="alert alert-danger" *ngIf="password.touched && password.errors?.required">Password Required</div>
+        <div class="alert alert-success" *ngIf="password.touched &&  password.errors?.minlength"><i class="fas fa-times-circle"></i>Password must be more than 6 characters</div>
+        <br>
+        <input id="confpass" ngModel name="passwordConfirm" #passwordConfirm="ngModel" type="password" class="form-control" placeholder="Confirm Password" required>
+        <div id="error" class="alert alert-danger" *ngIf="passwordConfirm.invalid && passwordConfirm.touched">Password Required</div>
+        <div class="alert alert-success" *ngIf="passwordConfirm.value !== password.value"><i class="fas fa-times-circle"></i>Passwords doesnot match</div>
+        <br>
+        <button id="button" class="btn btn-primary" [disabled]="f.invalid || password.value !== passwordConfirm.value">Create Account</button>
+    </form>
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
